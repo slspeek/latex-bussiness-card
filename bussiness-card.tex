@@ -28,16 +28,16 @@
 
 % now what do you like to put in your ticket
 \newcommand{\vcardfront}[5]{\ticket{%
-    \put( 63, 5){\includegraphics[width=40mm,angle=90,origin=bl]{ifmlogoc}}
-    \put( 63.2, 2){\color{uni}your logo}
+    \put( 63, 5){\includegraphics[width=40mm,angle=90,origin=bl]{linux020}}
+    % \put( 63.2, 2){\color{uni}your logo}
     \put( 5, 13){\color{uni}\line(1,0){56}}
-    \put( 7, 10){\small your company}
-    \put( 7,6.5){\small street 1}
-    \put( 7,  3){\small xxxxx city and state}
-    \put( 7, 24){\small phone:}
-    \put( 7, 20){\small fax:}
+    \put( 7, 10){\small iedere eerste zaterdag van de maand}
+    \put( 7,6.5){\small Ketelhuisplein 41}
+    \put( 7,  3){\small 1054 RL Amsterdam}
+    % \put( 7, 24){\small phone:}
+    % \put( 7, 20){\small fax:}
     \put(6,40){\bfseries\LARGE #1}
-    \put(7,36){#2}
+    \put(6,36){#2}
     \put(15,24){\small #3}
     \put(15,20){\small #4}
     \put( 7,16){\small #5}
@@ -61,7 +61,7 @@
 % ten cards for the front
 \whiledo{\thenumcards<10}{%
   \stepcounter{numcards}%
-  \vcardfront{Mr. X}{Degree/Profession}{+YY/XXXX/ZZZ ZZ ZZ}{+YY/XXXX/ZZZ ZZ ZZ}{yourmail@your-provider.xxx}}
+  \vcardfront{Steven}{Debian specialist}{}{}{steven@linux020.nl}}
 
 \setcounter{numcards}{0}
 
