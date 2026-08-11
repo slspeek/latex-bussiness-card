@@ -17,8 +17,10 @@
 \usepackage{graphicx}
 \usepackage{color}
 
+\input{data.tex}
+
 % define something
-\definecolor{uni}{rgb}{.3019,.7216,.7019}
+\definecolor{uni}{rgb}{1,0,0}
 
 % make your default ticket. \ticketdefault is somewhat like a background
 % here it is empty, because we use different tickets for the front an
@@ -32,24 +34,21 @@
     % \put( 63.2, 2){\color{uni}your logo}
     \put( 5, 13){\color{uni}\line(1,0){56}}
     \put( 7, 10){\small iedere eerste zaterdag van de maand}
-    \put( 7,6.5){\small Ketelhuisplein 41}
-    \put( 7,  3){\small 1054 RL Amsterdam}
-    % \put( 7, 24){\small phone:}
-    % \put( 7, 20){\small fax:}
+    \put( 7,6.5){\small Buurthuis Lydia, Roelof Hartplein 2a}
+    \put( 7,  3){\small 1071 TT Amsterdam}
+    \ifx\relax#3\relax\else\put( 7, 24){\small Tel:}\fi
+    \ifx\relax#4\relax\else\put( 7, 20){\small Matrix:}\fi
     \put(6,40){\bfseries\LARGE #1}
-    \put(6,36){#2}
-    \put(15,24){\small #3}
-    \put(15,20){\small #4}
+    \put(7,36){#2}
+    \put(18,24){\small #3}
+    \put(18,20){\small #4}
     \put( 7,16){\small #5}
  }}
 
 \newcommand{\vcardback}[1]{\ticket{%
-    \put( 7, 26){\small private:}
-    \put( 5, 23){\color{uni}\line(1,0){56}}
-    \put( 7,19){\small%
-        \begin{minipage}[t]{50mm}%
-          {#1}\hss%
-        \end{minipage}}%
+    \put( 7, 42){\small vcard:}
+    \put( 20,1){\includegraphics[width=40mm,origin=bl]{vcard-qr.png}}%
+    \put( 5, 39){\color{uni}\line(1,0){65}}
 }}
 
 % a counter, which makes life easier...
@@ -61,7 +60,8 @@
 % ten cards for the front
 \whiledo{\thenumcards<10}{%
   \stepcounter{numcards}%
-  \vcardfront{Steven}{Debian specialist}{}{}{steven@linux020.nl}}
+  % \vcardfront{Steven}{Debian specialist}{}{}{steven@linux020.nl}}
+  \vcardfront{\NAME}{\TITLE}{\PHONE}{\MATRIX}{\EMAIL}}
 
 \setcounter{numcards}{0}
 

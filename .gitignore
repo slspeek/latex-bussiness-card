@@ -1,3 +1,6 @@
+*.vcf
+data.tex
+vcard-qr.png
 *.pdf
 ## Core latex/pdflatex auxiliary files:
 *.aux
