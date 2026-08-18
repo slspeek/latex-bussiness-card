@@ -2,7 +2,6 @@ MAINNAME=bussiness-card
 TARGET=pdf
 LATEX_IMAGE=texlive/texlive:TL2024-historic
 RUN_LATEX_IMAGE=docker run \
-						-it \
 						--rm \
 						-t --workdir=/workdir \
 						--user="$(shell id -u):$(shell id -g)" \
@@ -11,7 +10,8 @@ RUN_LATEX_IMAGE=docker run \
 						-e TEXMFCACHE=/workdir/.texcache \
   						-e TEXMFVAR=/workdir/.texcache \
 						 $(LATEX_IMAGE)
-RUN_LATEX=$(RUN_LATEX_IMAGE) lualatex --output-directory=/workdir/$(TARGET) \
+RUN_LATEX=$(RUN_LATEX_IMAGE) lualatex --interaction batchmode \
+	--output-directory=/workdir/$(TARGET) \
 	 $(MAINNAME).tex
 
 NAME=Linus Torvalds
@@ -61,9 +61,10 @@ install-deps:
 print: data.tex vcard-qr.png
 	mkdir -p $(TARGET)
 	$(RUN_LATEX)
+	mv $(TARGET)/$(MAINNAME).pdf "$(TARGET)/$(NAME).pdf"
 
 viewpdf: print
-	open $(TARGET)/$(MAINNAME).pdf
+	open "$(TARGET)/$(NAME).pdf"
 
 clean:
 	rm -rf $(TARGET)
