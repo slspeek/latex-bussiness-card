@@ -1,15 +1,18 @@
 MAINNAME=bussiness-card
 TARGET=pdf
-LATEX_IMAGE=leplusorg/latex:sha-4a17317
+LATEX_IMAGE=texlive/texlive:TL2024-historic
 RUN_LATEX_IMAGE=docker run \
 						-it \
 						--rm \
-						-t --workdir=/tmp \
+						-t --workdir=/workdir \
 						--user="$(shell id -u):$(shell id -g)" \
 						--net=none \
-						-v "$(shell pwd):/tmp" \
+						-v "$(shell pwd):/workdir" \
+						-e TEXMFCACHE=/workdir/.texcache \
+  						-e TEXMFVAR=/workdir/.texcache \
 						 $(LATEX_IMAGE)
-RUN_LATEX=$(RUN_LATEX_IMAGE) pdflatex  --output-directory=/tmp/pdf $(MAINNAME).tex
+RUN_LATEX=$(RUN_LATEX_IMAGE) lualatex --output-directory=/workdir/$(TARGET) \
+	 $(MAINNAME).tex
 
 NAME=Linus Torvalds
 TITLE=Hoofd Kernel Ontwikkeling
