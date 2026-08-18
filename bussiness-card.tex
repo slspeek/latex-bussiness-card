@@ -8,16 +8,22 @@
 %
 %%%%
 % use the corresponding paper size for your ticket definition
-\documentclass[a4paper,10pt]{letter}
+\documentclass[a4paper,oneside,10pt]{article}
 
 % load ticket.sty with the appropriate ticket definition
 \usepackage[zw32010,crossmark]{ticket}
+\ticketNumbers{2}{5}
+\ticketSize{85}{55}
+\ticketDistance{0}{0}
+\hoffset=-5.4mm
+\voffset=-18.4mm % Instelling voor de bovenmarge
 
 % load misc stuff
 \usepackage{graphicx}
 \usepackage{color}
 \usepackage{etoolbox}
 
+% load the data for your card
 \input{data.tex}
 
 % define something
