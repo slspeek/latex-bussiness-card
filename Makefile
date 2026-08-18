@@ -2,20 +2,20 @@ MAINNAME=bussiness-card
 TARGET=pdf
 LATEX_IMAGE=leplusorg/latex:sha-4a17317
 RUN_LATEX_IMAGE=docker run \
+						-it \
 						--rm \
 						-t --workdir=/tmp \
 						--user="$(shell id -u):$(shell id -g)" \
 						--net=none \
 						-v "$(shell pwd):/tmp" \
-						-e "TEXINPUTS=/tmp/tex:$$TEXINPUTS" \
 						 $(LATEX_IMAGE)
-RUN_LATEX=$(RUN_LATEX_IMAGE) pdflatex  --interaction batchmode --output-directory=/tmp/pdf $(MAINNAME).tex
+RUN_LATEX=$(RUN_LATEX_IMAGE) pdflatex  --output-directory=/tmp/pdf $(MAINNAME).tex
 
-NAME=Steven
-TITLE=Debian specialist
-PHONE=
-MATRIX=@steven:example.com
-EMAIL=steven@example.com
+NAME=Linus Torvalds
+TITLE=Hoofd Kernel Ontwikkeling
+PHONE=+31 6123456789
+MATRIX=@linus:linux020.net
+EMAIL=info@linux020.nl
 URL=linux020.nl
 
 default: clean print
@@ -26,6 +26,8 @@ vcard.vcf: Makefile
 	BEGIN:VCARD
 	VERSION:4.0
 	FN:${NAME}
+	ORG:Linux020
+	TITLE:${TITLE}
 	TEL:${PHONE}
 	EMAIL:${EMAIL}
 	IMPP:matrix:${MATRIX}
@@ -39,7 +41,7 @@ vcard-qr.png: vcard.vcf
 
 .ONESHELL:
 data.tex: Makefile
-	cat <<EOF > data.tex
+	cat <<EOF | sed -e 's/ë/\\"{e}/g' > data.tex
 	\newcommand{\NAME}{${NAME}}
 	\newcommand{\PHONE}{${PHONE}}
 	\newcommand{\MATRIX}{${MATRIX}}
@@ -52,11 +54,10 @@ install-deps:
 	sudo apt-get update 
 	sudo apt-get install --yes qrencode
 
+.PHONY:print vcard.vcf vcard-qr.png data.tex
 print: data.tex vcard-qr.png
 	mkdir -p $(TARGET)
-    # Needs to run 3 times to get the pagenumbers in table content right
-    # https://tex.stackexchange.com/questions/115921/wrong-numeration-in-toc-longer-then-one-page
-	$(RUN_LATEX); $(RUN_LATEX); $(RUN_LATEX)
+	$(RUN_LATEX)
 
 viewpdf: print
 	open $(TARGET)/$(MAINNAME).pdf

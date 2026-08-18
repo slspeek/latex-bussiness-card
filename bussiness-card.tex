@@ -16,39 +16,63 @@
 % load misc stuff
 \usepackage{graphicx}
 \usepackage{color}
+\usepackage{etoolbox}
 
 \input{data.tex}
 
 % define something
 \definecolor{uni}{rgb}{1,0,0}
-
+\def\Tabbed{22}
 % make your default ticket. \ticketdefault is somewhat like a background
 % here it is empty, because we use different tickets for the front an
 % the back of our card
 \renewcommand{\ticketdefault}{%
 }
 
-% now what do you like to put in your ticket
-\newcommand{\vcardfront}[5]{\ticket{%
+\newcommand{\vcardfront}{\ticket{%
     \put( 63, 5){\includegraphics[width=40mm,angle=90,origin=bl]{linux020}}
     % \put( 63.2, 2){\color{uni}your logo}
-    \put( 5, 13){\color{uni}\line(1,0){56}}
-    \put( 7, 10){\small iedere eerste zaterdag van de maand}
-    \put( 7,6.5){\small Buurthuis Lydia, Roelof Hartplein 2a}
-    \put( 7,  3){\small 1071 TT Amsterdam}
-    \ifx\relax#3\relax\else\put( 7, 24){\small Tel:}\fi
-    \ifx\relax#4\relax\else\put( 7, 20){\small Matrix:}\fi
-    \put(6,40){\bfseries\LARGE #1}
-    \put(7,36){#2}
-    \put(18,24){\small #3}
-    \put(18,20){\small #4}
-    \put( 7,16){\small #5}
+    \ifdefempty{\PHONE}{}{\put( 7, 24){\small Telefoon:}} 
+    \ifdefempty{\MATRIX}{}{\put( 7, 20){\small Matrix:}}
+    \ifdefempty{\EMAIL}{}{\put( 7, 16){\small Email:}}
+    \put(6,40){\bfseries\LARGE \NAME}
+    \put(7,36){\TITLE}
+    \put(\Tabbed,24){\small \PHONE}
+    \put(\Tabbed,20){\small \MATRIX}
+    \put(\Tabbed,16){\small \EMAIL}
+    \put(7,12){\small Website:}
+    \put(\Tabbed,12){\small \URL}
+    \put( 3, 7){\color{uni}\line(1,0){56}}
+    \put( 7, 3){\small Bevrijd uw computer, installeer Linux}
  }}
 
-\newcommand{\vcardback}[1]{\ticket{%
-    \put( 7, 42){\small vcard:}
-    \put( 20,1){\includegraphics[width=40mm,origin=bl]{vcard-qr.png}}%
-    \put( 5, 39){\color{uni}\line(1,0){65}}
+\newcommand{\vcardback}{\ticket{%
+\put( 43, 48){\small 
+\begin{minipage}{40mm}
+  \begin{center}
+  vcard \NAME{}:
+  \end{center}
+\end{minipage}}
+\put( 43, 5){\includegraphics[width=40mm,origin=bl]{vcard-qr.png}}%
+\put( 43, 5){\color{uni}\line(0,1){48}}
+\put( 5, 49){\small
+    \begin{minipage}[t]{35mm}
+    Linux gebruikersgroep in Amsterdam
+    \begin{itemize}
+      \item Inloop
+      \item Hulp bij installatie
+      % \item Workshops
+      \item Cursussen
+      \item Dienstverlening
+    \end{itemize}
+    iedere 1\textsuperscript{e} zaterdag van de maand in 
+    Buurthuis Lydia
+
+    Roelof Hartplein 2a
+    
+    1071 TT Amsterdam
+    \end{minipage}
+}
 }}
 
 % a counter, which makes life easier...
@@ -60,13 +84,13 @@
 % ten cards for the front
 \whiledo{\thenumcards<10}{%
   \stepcounter{numcards}%
-  % \vcardfront{Steven}{Debian specialist}{}{}{steven@linux020.nl}}
-  \vcardfront{\NAME}{\TITLE}{\PHONE}{\MATRIX}{\EMAIL}}
+  \vcardfront{}}
+
 
 \setcounter{numcards}{0}
 
 % and ten for the backside
 \whiledo{\thenumcards<10}{%
   \stepcounter{numcards}%
-  \vcardback{phone: ---/HH HH HHH\\fax: ---/HH HH HHH\\homestreet 7\\everywhere}}
+  \vcardback{}}
 \end{document}
