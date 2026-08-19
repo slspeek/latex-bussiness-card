@@ -14,6 +14,8 @@ RUN_LATEX=$(RUN_LATEX_IMAGE) lualatex --interaction batchmode \
 	--output-directory=/workdir/$(TARGET) \
 	 $(MAINNAME).tex
 
+BACKSIDE_SHIFT=-4.5mm
+
 NAME=Linus Torvalds
 TITLE=Hoofd Kernel Ontwikkeling
 PHONE=+31 6123456789
@@ -51,6 +53,8 @@ data.tex: Makefile
 	\newcommand{\EMAIL}{${EMAIL}}
 	\newcommand{\TITLE}{${TITLE}}
 	\newcommand{\URL}{${URL}}
+
+	\newcommand{\backsideshift}{${BACKSIDE_SHIFT}}
 	EOF
 
 install-deps:

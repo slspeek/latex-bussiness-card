@@ -12,10 +12,32 @@
 
 % load ticket.sty with the appropriate ticket definition
 \usepackage[zw32010,crossmark]{ticket}
+\def\standardoffset{-5.4mm}
+\newcommand{\addOffsetsInMM}[2]{%
+  \directlua{
+    % Convert both inputs to scaled points (sp) and add them
+    local sum_sp = tex.sp("#1") + tex.sp("#2")
+    
+    % Find the sp value of 1mm for the conversion
+    local mm_in_sp = tex.sp("1mm")
+    
+    % Divide to get the raw float, then print back to TeX
+    local sum_mm = sum_sp / mm_in_sp
+    -- Schrijf het resultaat naar de TeX log
+    -- De toevoeging "log" zorgt dat het alleen in de .log file komt. 
+    -- Laat je "log", weg, dan print hij het ook live in je terminal.
+    texio.write_nl("log", "========== OFFSET BEREKENING ==========")
+    texio.write_nl("log", "Input 1: #1, Input 2: #2")
+    texio.write_nl("log", "Totaal in mm: " .. sum_mm)
+    texio.write_nl("log", "=======================================")
+    tex.print(sum_mm .. "mm")
+  }%
+}
+
 \ticketNumbers{2}{5}
 \ticketSize{85}{55}
 \ticketDistance{0}{0}
-\hoffset=-5.4mm
+\hoffset=\standardoffset % Instelling voor de linkermarge
 \voffset=-18.4mm % Instelling voor de bovenmarge
 
 % load misc stuff
@@ -92,7 +114,8 @@
   \stepcounter{numcards}%
   \vcardfront{}}
 
-
+%  \hoffset{\addOffsetsInMM{\standardoffset}{\backsideshift}} % Instelling voor de linkermarge van de achterzijde
+\hoffset=-9.9mm % Instelling voor de linkermarge van de achterzijde
 \setcounter{numcards}{0}
 
 % and ten for the backside
