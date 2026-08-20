@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 (tail -n +2 "$1"; echo) | \
-    while IFS=$'\t' read -r NAME TITLE EMAIL PHONE MATRIX; 
+    while IFS=, read -r NAME TITLE EMAIL PHONE MATRIX; 
     do make viewpdf NAME="$NAME" \
                     TITLE="$TITLE" \
                     EMAIL="$EMAIL" \
