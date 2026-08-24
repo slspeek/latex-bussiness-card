@@ -12,7 +12,8 @@
 
 % load ticket.sty with the appropriate ticket definition
 \usepackage[zw32010,crossmark]{ticket}
-\newcommand{\standardoffset}{-5.4mm}
+\newcommand{\standhorizontaloffset}{-5.4mm}
+\newcommand{\standverticaloffset}{-18.4mm}
 \newcommand{\addOffsetsInMM}[2]{%
   \directlua{
     
@@ -39,8 +40,8 @@
 \ticketNumbers{2}{5}
 \ticketSize{85}{55}
 \ticketDistance{0}{0}
-\hoffset=\standardoffset % Instelling voor de linkermarge
-\voffset=-18.4mm % Instelling voor de bovenmarge
+\hoffset=\standhorizontaloffset % Instelling voor de linkermarge
+\voffset=\standverticaloffset % Instelling voor de bovenmarge
 
 % load misc stuff
 \usepackage{graphicx}
@@ -115,8 +116,8 @@
   \stepcounter{numcards}%
   \vcardfront{}}
 
-\hoffset=\addOffsetsInMM{\standardoffset}{\backsideshift} % Instelling voor de linkermarge van de achterzijde
-% \hoffset=-9.9mm % Instelling voor de linkermarge van de achterzijde
+\hoffset=\addOffsetsInMM{\standhorizontaloffset}{\horizontalbacksideshift} % Instelling voor de linkermarge van de achterzijde
+\voffset=\addOffsetsInMM{\standverticaloffset}{\verticalbacksideshift} % Instelling voor de bovenmarge van de achterzijde
 \setcounter{numcards}{0}
 
 % and ten for the backside

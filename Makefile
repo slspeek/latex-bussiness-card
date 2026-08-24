@@ -14,7 +14,8 @@ RUN_LATEX=$(RUN_LATEX_IMAGE) lualatex --interaction batchmode \
 	--output-directory=/workdir/$(TARGET) \
 	 $(MAINNAME).tex
 
-BACKSIDE_SHIFT=-4.5mm
+HORIZONTAL_BACKSIDE_SHIFT=-2.5mm
+VERTICAL_BACKSIDE_SHIFT=-2.5mm
 
 NAME=Linus Torvalds
 TITLE=Hoofd Kernel Ontwikkeling
@@ -54,7 +55,8 @@ data.tex: Makefile
 	\newcommand{\TITLE}{${TITLE}}
 	\newcommand{\URL}{${URL}}
 
-	\newcommand{\backsideshift}{${BACKSIDE_SHIFT}}
+	\newcommand{\horizontalbacksideshift}{${HORIZONTAL_BACKSIDE_SHIFT}}
+	\newcommand{\verticalbacksideshift}{${VERTICAL_BACKSIDE_SHIFT}}
 	EOF
 
 install-deps:
