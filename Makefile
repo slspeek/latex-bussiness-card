@@ -68,6 +68,8 @@ print: data.tex vcard-qr.png
 	mkdir -p $(TARGET)
 	$(RUN_LATEX)
 	mv $(TARGET)/$(MAINNAME).pdf "$(TARGET)/$(NAME).pdf"
+	mv $(TARGET)/$(MAINNAME).aux "$(TARGET)/$(NAME).aux"
+	mv $(TARGET)/$(MAINNAME).log "$(TARGET)/$(NAME).log"
 
 viewpdf: print
 	open "$(TARGET)/$(NAME).pdf"
