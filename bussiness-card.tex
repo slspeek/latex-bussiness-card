@@ -12,8 +12,8 @@
 
 % load ticket.sty with the appropriate ticket definition
 \usepackage[zw32010,crossmark]{ticket}
-\newcommand{\standhorizontaloffset}{-5.4mm}
-\newcommand{\standverticaloffset}{-18.4mm}
+\newcommand{\standardhorizontaloffset}{-5.4mm}
+\newcommand{\standardverticaloffset}{-18.4mm}
 \newcommand{\addOffsetsInMM}[2]{%
   \directlua{
     
@@ -40,8 +40,8 @@
 \ticketNumbers{2}{5}
 \ticketSize{85}{55}
 \ticketDistance{0}{0}
-\hoffset=\standhorizontaloffset % Instelling voor de linkermarge
-\voffset=\standverticaloffset % Instelling voor de bovenmarge
+\hoffset=\standardhorizontaloffset % Instelling voor de linkermarge
+\voffset=\standardverticaloffset % Instelling voor de bovenmarge
 
 % load misc stuff
 \usepackage{graphicx}
@@ -116,13 +116,14 @@
   \stepcounter{numcards}%
   \vcardfront{}}
 
-\hoffset=\addOffsetsInMM{\standhorizontaloffset}{\horizontalbacksideshift} % Instelling voor de linkermarge van de achterzijde
-\voffset=\addOffsetsInMM{\standverticaloffset}{\verticalbacksideshift} % Instelling voor de bovenmarge van de achterzijde
+\hoffset=\addOffsetsInMM{\standardhorizontaloffset}{\horizontalbacksideshift} % Instelling voor de linkermarge van de achterzijde
+\voffset=\addOffsetsInMM{\standardverticaloffset}{\verticalbacksideshift} % Instelling voor de bovenmarge van de achterzijde
 \setcounter{numcards}{0}
 
 % and ten for the backside
 \whiledo{\thenumcards<10}{%
   \stepcounter{numcards}%
   \vcardback{}}
-
+  
+\typeout{SHOffset: \standardhorizontaloffset, SVOffset: \standardverticaloffset, HBacksideShift: \horizontalbacksideshift, VBacksideShift: \verticalbacksideshift}
 \end{document}
